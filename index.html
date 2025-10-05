@@ -263,6 +263,7 @@
             justify-content: center;
             margin: 30px auto;
             max-width: 300px;
+            min-height: 60px;
         }
 
         .access-btn i {
@@ -445,6 +446,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            min-height: 60px;
         }
 
         .submit-btn.instagram {
@@ -495,6 +497,7 @@
             z-index: 1000;
             opacity: 0;
             transition: opacity 0.3s ease;
+            padding: 15px;
         }
 
         .modal.active {
@@ -504,14 +507,19 @@
 
         .close-modal {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            right: 15px;
             background: none;
             border: none;
             color: rgba(255, 255, 255, 0.7);
             font-size: 1.8em;
             cursor: pointer;
             transition: color 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .close-modal:hover {
@@ -615,6 +623,156 @@
             .access-btn, .submit-btn {
                 padding: 12px 20px;
                 font-size: 1em;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .profile-card {
+                padding: 20px 15px;
+            }
+            
+            .profile-image {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .content-grid {
+                gap: 15px;
+            }
+            
+            .stats {
+                gap: 15px;
+            }
+            
+            .stat-value {
+                font-size: 1.3em;
+            }
+        }
+        
+        /* Дополнительные улучшения для очень маленьких экранов */
+        @media (max-width: 360px) {
+            .logo {
+                font-size: 1.8em;
+            }
+            
+            .header p {
+                font-size: 1em;
+            }
+            
+            .profile-name {
+                font-size: 1.7em;
+            }
+            
+            .profile-bio {
+                font-size: 1em;
+            }
+            
+            .profile-image {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .stats {
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+            
+            .stat-item {
+                flex: 1 0 33%;
+                margin-bottom: 10px;
+            }
+            
+            .stat-value {
+                font-size: 1.2em;
+            }
+            
+            .stat-label {
+                font-size: 0.8em;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .content-image {
+                height: 200px;
+            }
+            
+            .access-btn, .submit-btn {
+                width: 100%;
+                max-width: none;
+                font-size: 0.95em;
+            }
+            
+            .social-icons {
+                gap: 10px;
+            }
+            
+            .social-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5em;
+            }
+            
+            .login-form h2 {
+                font-size: 1.5em;
+            }
+            
+            .login-subtitle {
+                font-size: 0.9em;
+            }
+            
+            .form-group label {
+                font-size: 1em;
+            }
+            
+            .form-group input {
+                padding: 12px 15px;
+            }
+            
+            .security-note {
+                padding: 12px;
+            }
+            
+            .security-note i {
+                font-size: 1.2em;
+                margin-right: 10px;
+            }
+            
+            .security-note p {
+                font-size: 0.85em;
+            }
+            
+            .modal {
+                padding: 10px;
+            }
+            
+            .close-modal {
+                top: 10px;
+                right: 10px;
+            }
+        }
+        
+        /* Для устройств с очень маленькой высотой экрана */
+        @media (max-height: 600px) {
+            .header {
+                padding: 15px 0;
+                margin-bottom: 20px;
+            }
+            
+            .profile-section {
+                margin-bottom: 30px;
+            }
+            
+            .content-grid {
+                margin-bottom: 30px;
+            }
+            
+            .login-form {
+                max-height: 90vh;
+                overflow-y: auto;
             }
         }
     </style>
